@@ -27,6 +27,7 @@
     "@supabase/auth-helpers-sveltekit": "^0.13.0",
     "@supabase/ssr": "^0.8.0",
     "@supabase/supabase-js": "^2.45.0",
+    "@sveltejs/adapter-netlify": "^5.2.4",
     "@vite-pwa/sveltekit": "^0.6.0",
     "date-fns": "^3.6.0",
     "vite-plugin-pwa": "^1.2.0",

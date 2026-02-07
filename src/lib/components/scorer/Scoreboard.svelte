@@ -17,7 +17,7 @@
     bestOf = 5
   } = $props()
 
-  const legsToWin = Math.ceil(bestOf / 2)
+  let legsToWin = $derived(Math.ceil(bestOf / 2))
 </script>
 
 <div class="scoreboard">

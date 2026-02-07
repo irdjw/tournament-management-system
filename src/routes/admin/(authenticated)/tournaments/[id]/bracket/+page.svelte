@@ -178,8 +178,11 @@
 </div>
 
 {#if selectedMatch}
-  <div class="modal-overlay" onclick={closeAssignModal}>
-    <div class="modal" onclick={(e) => e.stopPropagation()}>
+  <!-- svelte-ignore a11y_no_static_element_interactions -->
+  <!-- svelte-ignore a11y_interactive_supports_focus -->
+  <div class="modal-overlay" onclick={closeAssignModal} onkeydown={(e) => e.key === 'Escape' && closeAssignModal()} role="dialog" aria-modal="true" tabindex="-1">
+    <!-- svelte-ignore a11y_no_static_element_interactions -->
+    <div class="modal" onclick={(e) => e.stopPropagation()} onkeydown={(e) => e.stopPropagation()}>
       <h3>Assign Scorer</h3>
       <p class="match-info">
         {getPlayerName(selectedMatch.player1)} vs {getPlayerName(selectedMatch.player2)}
