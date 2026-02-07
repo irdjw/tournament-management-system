@@ -1,5 +1,4 @@
 import { createServerClient } from '@supabase/ssr'
-import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public'
 import { redirect } from '@sveltejs/kit'
 
 /**
@@ -7,8 +6,11 @@ import { redirect } from '@sveltejs/kit'
  * Handles session management and route protection
  */
 export async function handle({ event, resolve }) {
+  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || ''
+  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || ''
+
   // Create a Supabase client for server-side operations
-  event.locals.supabase = createServerClient(PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY, {
+  event.locals.supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
     cookies: {
       getAll: () => event.cookies.getAll(),
       setAll: (cookiesToSet) => {
