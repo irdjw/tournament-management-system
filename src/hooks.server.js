@@ -6,8 +6,17 @@ import { redirect } from '@sveltejs/kit'
  * Handles session management and route protection
  */
 export async function handle({ event, resolve }) {
-  const supabaseUrl = import.meta.env.PUBLIC_SUPABASE_URL || ''
-  const supabaseAnonKey = import.meta.env.PUBLIC_SUPABASE_ANON_KEY || ''
+  // Use process.env for server-side (Netlify Functions)
+  const supabaseUrl = process.env.PUBLIC_SUPABASE_URL || ''
+  const supabaseAnonKey = process.env.PUBLIC_SUPABASE_ANON_KEY || ''
+
+  // Skip Supabase if not configured
+  if (!supabaseUrl || !supabaseAnonKey) {
+    event.locals.supabase = null
+    event.locals.getSession = async () => null
+    event.locals.getUser = async () => null
+    return resolve(event)
+  }
 
   // Create a Supabase client for server-side operations
   event.locals.supabase = createServerClient(supabaseUrl, supabaseAnonKey, {
